@@ -8,17 +8,22 @@ def email_salary_slips(payroll_entry_name, publish_progress=True):
     salary_slips = get_sal_slip_list(payroll_entry, ss_status=1)
 
     if salary_slips:
-
         emailed_employees = []
         failed_employees = []
-
         
         for ss in salary_slips:
-            if not frappe.get_all(
-                "Email Queue", 
-                filters={"reference_doctype": "Salary Slip", "reference_name": ss.name, "status": "Not Sent"},
-                fields=["name"], limit=1
-            ):
+            queue_entries = frappe.get_all(
+                    "Email Queue", 
+                    filters={
+                        "reference_name": ss.name,  # reference_name should match ss.name
+                        "status": ["in", ["Sent", "Not Sent", "Sending"]]  # status must NOT be "Sent" or "Not Sent"
+                    }
+                )
+
+            print('queue_entries', queue_entries, 'ss.name', ss.name)
+
+            if not queue_entries:
+
                 slip = frappe.get_doc("Salary Slip", ss.name)
                 # Fetch employee's preferred email
                 prefered_email = frappe.db.get_value("Employee", slip.employee, "prefered_email", cache=True)
