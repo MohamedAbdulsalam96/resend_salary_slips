@@ -208,7 +208,7 @@ fixtures = [
     {
         "doctype": "Client Script",
         "filters": {
-            "module": ["=", "Flex"]
+            "module": ["=", "Resend Salary Slips"]
         }
     },
 ]
