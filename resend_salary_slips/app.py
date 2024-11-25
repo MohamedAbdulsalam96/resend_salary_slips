@@ -20,8 +20,6 @@ def email_salary_slips(payroll_entry_name, publish_progress=True):
                     }
                 )
 
-            print('queue_entries', queue_entries, 'ss.name', ss.name)
-
             if not queue_entries:
 
                 slip = frappe.get_doc("Salary Slip", ss.name)
@@ -42,6 +40,10 @@ def email_salary_slips(payroll_entry_name, publish_progress=True):
             frappe.msgprint(f"Salary Slips emailed to: {', '.join(emailed_employees)}")
         if failed_employees:
             frappe.msgprint(f"Add a <strong>Prefered Email</strong> is for {', '.join(failed_employees)} and try again")
+
+        if not emailed_employees and not failed_employees:
+            frappe.msgprint(f"No unsent payslips to resend.")
+
 
 def get_sal_slip_list(pe, ss_status, as_dict=True):
     """
