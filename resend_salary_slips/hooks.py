@@ -204,6 +204,15 @@ app_license = "mit"
 # before_job = ["resend_salary_slips.utils.before_job"]
 # after_job = ["resend_salary_slips.utils.after_job"]
 
+fixtures = [     
+    {
+        "doctype": "Client Script",
+        "filters": {
+            "module": ["=", "Flex"]
+        }
+    },
+]
+
 # User Data Protection
 # --------------------
 

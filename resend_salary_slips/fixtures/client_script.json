@@ -1,0 +1,13 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Project",
+  "enabled": 1,
+  "modified": "2024-11-23 16:09:41.462993",
+  "module": "Flex",
+  "name": "Project Cost Center Filter",
+  "script": "frappe.ui.form.on('Project', {\n    setup(frm){\n    },\n\trefresh(frm) {\n        frm.set_query(\"cost_center\", function() {\n            return {\n                \"filters\": {\n                    \"is_group\": 0\n                }\n            };\n        });\n\t}\n});",
+  "view": "Form"
+ }
+]
